@@ -3,6 +3,7 @@ package com.frank.demo.webservice.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.frank.demo.webservice.msgtype.TypeEnrollmentLookupsReq;
 import com.frank.demo.webservice.msgtype.TypeEnrollmentLookupsRsp;
+import com.frank.demo.webservice.msgtype.TypeGetEnrollmentLookupRsp;
 import com.frank.demo.webservice.msgtype.TypeMonitorResp;
 import com.frank.demo.webservice.msgtype.commtypes.TypeCard;
 import com.frank.demo.webservice.msgtype.commtypes.TypeCardExpiry;
@@ -37,6 +38,17 @@ public class ThreeDSecure {
         tmp_cd.setLastDigits("7890");
         tmp_cd.setType(TypeCardKind.VI);
         elRsp.setCard(tmp_cd);
+        return elRsp;
+    }
+
+    @GET
+    @Path("/v1/accounts/{account_id}/enrollmentchecks/{enrollment_id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public TypeGetEnrollmentLookupRsp enrollmentchecks(@PathParam("account_id") String account_id,
+                                                       @PathParam("enrollment_id") String enrl_id)
+    {
+        TypeGetEnrollmentLookupRsp elRsp = new TypeGetEnrollmentLookupRsp();
+        elRsp.setAcsURL("https://pay.test.netbanx.com/emulator/test_acs");
         return elRsp;
     }
 }
